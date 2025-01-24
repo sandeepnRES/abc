@@ -1,7 +1,7 @@
 DOCKER_IMAGE_NAME ?= abc
 DOCKER_TAG ?= `cat ./VERSION`
-DOCKER_REGISTRY ?= ghcr.io/sandeepnRES
-GIT_URL = https://github.ibm.com/sandeepnRES/abc
+DOCKER_REGISTRY ?= ghcr.io/sandeepnres
+GIT_URL = https://github.ibm.com/sandeepnres/abc
 DOCKER_IMAGE_SERVER = $(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
 DOCKER_IMAGE_SERVER_LATEST = $(DOCKER_IMAGE_NAME):latest
 

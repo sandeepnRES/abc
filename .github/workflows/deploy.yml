@@ -38,14 +38,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
+      - name: set lower case owner name
+        run: |
+          echo "DOCKER_REGISTRY_LC=${DOCKER_REGISTRY,,}" >>${GITHUB_ENV}
+          
       - name: Check if package already exists
-        run: (make check-if-tag-exists DOCKER_REGISTRY=${DOCKER_REGISTRY} && echo "PUSH=true" >> $GITHUB_ENV) || echo "PUSH=false" >> $GITHUB_ENV
+        run: (make check-if-tag-exists DOCKER_REGISTRY=${DOCKER_REGISTRY_LC} && echo "PUSH=true" >> $GITHUB_ENV) || echo "PUSH=false" >> $GITHUB_ENV
           
       - name: Build and Push
         id: build
         if: ${{ env.PUSH == 'true' }}
         run: |
-          make push-server DOCKER_REGISTRY=${DOCKER_REGISTRY}
+          make push-server DOCKER_REGISTRY=${DOCKER_REGISTRY_LC}
           image_name=$(make image-name)
           image_digest=$(docker images --no-trunc --quiet ${image_name})
           echo "image=${image_name}" >> "$GITHUB_OUTPUT"

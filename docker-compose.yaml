@@ -1,0 +1,6 @@
+version: '3.8'
+
+services:
+  abc:
+    image: abc:1.0.0
+    container_name: abc
